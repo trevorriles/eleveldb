@@ -1,5 +1,6 @@
 -module(rand_gen_1).
 -compile(export_all).
+-compile({nowarn_deprecated_function, {erlang, now, 0}}).
 
 %% !@#$! pareto key generators are not exported from basho_bench_keygen.erl
 %%
@@ -16,7 +17,7 @@
 random_bin(_Id, Size) ->
     HunkSize = 16*1024*1024,
     BigHunk = crypto:rand_bytes(HunkSize),
-    fun() -> 
+    fun() ->
             Offset = random:uniform(HunkSize - Size),
             <<_:Offset/binary, Bin:Size/binary, _/binary>> = BigHunk,
             Bin
@@ -92,4 +93,3 @@ pareto(Mean, Shape) ->
             U = 1 - random:uniform(),
             trunc((math:pow(U, S1) - 1) * S2)
     end.
-
