@@ -30,7 +30,7 @@ random_bin(_Id, Size) ->
 
 almost_completely_sequential(_Id, MaxSuffix, PercentAlmostSeq) ->
     fun() ->
-            {A, B, C} = now(),
+            {A, B, C} = os:timestamp(),
             TimeT = (A*1000000) + B,
             End = case random:uniform(100) of
                       N when N < PercentAlmostSeq ->
@@ -61,7 +61,7 @@ almost_completely_sequential(_Id, MaxSuffix, PercentAlmostSeq) ->
 
 mostly_sequential(_Id, MillionNotSequential) ->
     fun() ->
-            {A, B, C} = now(),
+            {A, B, C} = os:timestamp(),
             {X, Y, Z} = case random:uniform(1000*1000) of
                             N when N < MillionNotSequential ->
                                 {A - random:uniform(3),
